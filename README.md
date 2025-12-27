@@ -77,16 +77,16 @@ cd client && npm install
 3. **Run Development Servers**
 
 ```bash
-# Terminal 1: Backend (Port 5000)
+# Terminal 1: Backend (Port 8000)
 cd server && npm run dev
 
-# Terminal 2: Frontend (Port 5173)
+# Terminal 2: Frontend (Port 3000)
 cd client && npm run dev
 ```
 
 4. **Open in Browser**
 
-Navigate to `http://localhost:5173`
+Navigate to `http://localhost:3000`
 
 ### Docker Development
 
