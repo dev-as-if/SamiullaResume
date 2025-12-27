@@ -175,7 +175,19 @@ export const validateATSCompliance = (
  * Health check
  */
 export const healthCheck = (): Promise<any> => {
-  return apiClient.get('/api/ai/health').then((res) => res.data);
+  console.log(`🏥 Health check: ${API_BASE_URL}/api/ai/health`);
+  return apiClient.get('/api/ai/health').then((res) => {
+    console.log('✅ Backend is healthy');
+    return res.data;
+  }).catch((error) => {
+    console.error('❌ Health check failed:', {
+      message: error.message,
+      status: error.response?.status,
+      data: error.response?.data,
+      url: error.config?.url,
+    });
+    throw error;
+  });
 };
 
 export default apiClient;

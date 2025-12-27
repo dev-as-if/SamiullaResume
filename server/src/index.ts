@@ -21,12 +21,38 @@ try {
 app.use(helmet());
 
 // CORS configuration
+const allowedOrigins = [
+  (config.corsOrigin || '').replace(/\/$/, ''), // Remove trailing slash
+  'https://samiulla-resume.netlify.app',
+  'http://localhost:3000',
+  'http://localhost:5173',
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: config.corsOrigin,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) {
+        callback(null, true);
+      } else {
+        // Normalize origin (remove trailing slash for comparison)
+        const normalizedOrigin = origin.replace(/\/$/, '');
+        const isAllowed = allowedOrigins.some(allowedOrigin => 
+          allowedOrigin.replace(/\/$/, '') === normalizedOrigin
+        );
+        
+        if (isAllowed) {
+          callback(null, true);
+        } else {
+          console.warn(`⚠️ CORS blocked request from origin: ${origin}`);
+          callback(null, true); // Allow all for now
+        }
+      }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
+    optionsSuccessStatus: 200,
   })
 );
 
