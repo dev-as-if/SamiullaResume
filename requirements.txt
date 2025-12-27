@@ -1,0 +1,221 @@
+🎯 PROJECT OVERVIEW
+
+Build a Resume / CV Builder Web Application designed for a single non-technical user who wants to:
+
+Create professional resumes/CVs
+Use them for extra income
+Interact entirely through guided, conversational UI
+Rely heavily on LLM automation for content generation
+
+⚠️ Constraints
+No authentication
+No database
+No multi-user support
+Everything runs in a single session (in-memory / state-based)
+English only
+ATS-friendly output is mandatory
+
+🧱 TECH STACK
+
+Frontend
+React (Vite preferred)
+Tailwind CSS
+Framer Motion
+React Three Fiber / Three.js (for subtle 3D UI elements)
+Shadcn/UI or similar modern component library
+React PDF / HTML-to-PDF
+Docx generation (Word export)
+
+Backend
+Node.js
+Express
+Gemini API (Google Generative AI)
+Stateless REST APIs (no DB)
+
+Infrastructure
+Docker (multi-stage builds)
+Docker Compose
+AWS deployment ready (EC2 / ECS compatible)
+Environment variables via .env
+
+🧠 CORE FUNCTIONALITY
+
+1️⃣ Conversational Resume Creation (Question–Answer Driven)
+Entire resume creation happens via guided UI
+
+UI behaves like:
+MCQ
+Short text input
+Long text input
+
+Flow is recursive and dynamic
+
+Gemini should:
+Ask follow-up questions if answers are vague
+Adapt questions based on profession
+
+Example:
+
+UI asks: “What role are you applying for?”
+User enters: “Waiter”
+Gemini:
+
+Generates 2–3 variations for:
+Career objective
+Roles & responsibilities
+Skills
+
+User selects one
+
+User confirms
+
+Content is inserted into resume
+
+2️⃣ Resume Templates
+Start with 5 profession-based resume templates
+
+Templates must be:
+ATS-friendly
+Clean, semantic HTML
+No tables for layout (use flex/grid)
+
+Templates implemented as:
+React components
+Data-driven (JSON + CSS variables)
+
+User can switch templates anytime
+
+⚠️ PDF templates provided by the user should be:
+Recreated as HTML/CSS equivalents
+Optimized for ATS parsing
+Font choices: standard ATS-safe fonts (Arial, Calibri, Times New Roman)
+
+3️⃣ Live Resume Preview
+Split-screen UI:
+Left: Conversational input
+Right: Live resume preview
+
+Updates instantly as content changes
+
+Page auto-expands when content overflows
+
+LLM suggests:
+Content length optimization
+Section improvements
+
+4️⃣ Editing & Formatting
+User can:
+Edit generated content
+Delete sections
+Reorder sections
+
+Inline editing directly inside preview
+
+Formatting options:
+Font size
+Line spacing
+Section spacing
+
+5️⃣ LLM Help Button
+Every section has a “Help with AI” button
+
+Clicking opens a mini AI assistant that:
+Suggests improvements
+Rewrites content
+Adds missing points
+
+Gemini responses must be:
+Concise
+ATS-optimized
+Profession-specific
+
+6️⃣ Smart Automation (Gemini)
+Gemini must:
+Generate:
+Career objectives
+Skills
+Roles & responsibilities
+Summary
+
+Ask clarification questions when required
+
+Suggest missing sections
+
+Optimize wording for ATS keywords
+
+Avoid hallucinations
+
+Include LLM prompt engineering logic, such as:
+System prompt
+User prompt
+Confirmation loop
+Response validation
+
+7️⃣ Final Preview & Export
+Final confirmation screen
+
+Export options:
+PDF (pixel-perfect)
+Word (.docx)
+
+Output must be:
+ATS-friendly
+Text-selectable
+No watermark
+
+🎨 UI / UX REQUIREMENTS (VERY IMPORTANT)
+Next-level UI/UX
+Modern, premium feel
+Smooth animations
+Micro-interactions
+Subtle 3D components (cards, buttons, previews)
+Minimalist but visually rich
+Optimized for non-technical users
+
+Design principles:
+Zero confusion
+Guided flow
+Friendly tone
+Large readable fonts
+Visual progress indicators
+
+🐳 DOCKER & AWS
+Provide:
+Dockerfile (frontend + backend)
+docker-compose.yml
+
+Production-ready setup
+
+Environment-based configs
+
+AWS-friendly architecture
+
+Secure Gemini API usage
+
+📁 EXPECTED OUTPUT
+Generate:
+Complete frontend code
+Complete backend code
+Gemini prompt logic
+Resume template system
+Docker configuration
+Deployment notes
+Folder structure
+Key architectural decisions
+
+🧠 QUALITY BAR
+Code must be:
+Clean
+Modular
+Scalable
+Well-commented
+
+UI must feel premium
+
+Resume output must be professionally usable
+
+No placeholders — real logic only
+
+FINAL INSTRUCTION
+Treat this as a real startup-grade product, not a demo.
+Prioritize resume quality, ATS compatibility, and UI excellence above everything else.
