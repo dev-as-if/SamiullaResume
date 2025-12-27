@@ -4,6 +4,7 @@ import { FiX, FiPlus, FiEdit2, FiTrash2, FiZap } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import { useResumeStore, ResumeData } from '../store/resumeStore';
 import { v4 as uuidv4 } from 'uuid';
+import apiClient from '../utils/api';
 
 interface ExperienceEditorProps {
   isOpen: boolean;
@@ -84,34 +85,13 @@ export const ExperienceEditor: React.FC<ExperienceEditorProps> = ({
       
       console.log('[ExperienceEditor] Request body:', JSON.stringify(requestBody));
       
-      const response = await fetch(
-        'http://localhost:5000/api/ai/generate/role-responsibilities',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestBody),
-        }
+      const response = await apiClient.post(
+        '/api/ai/generate/role-responsibilities',
+        requestBody
       );
 
       console.log('[ExperienceEditor] Response status:', response.status);
-      console.log('[ExperienceEditor] Response headers:', {
-        contentType: response.headers.get('content-type'),
-      });
-
-      if (!response.ok) {
-        let errorMessage = 'Failed to get suggestions';
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.message || errorData.error || errorMessage;
-          console.error('[ExperienceEditor] Server error:', errorData);
-        } catch (e) {
-          const text = await response.text();
-          console.error('[ExperienceEditor] Error response:', text);
-        }
-        throw new Error(`Server error (${response.status}): ${errorMessage}`);
-      }
-
-      const data = await response.json();
+      const data = response.data;
       console.log('[ExperienceEditor] Received response:', data);
       
       // Add suggestions to the description - handle variations as either array or string

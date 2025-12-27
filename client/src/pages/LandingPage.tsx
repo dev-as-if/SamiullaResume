@@ -291,7 +291,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 animate={{ opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                ⚠️ Ensure the backend server is running on localhost:5000
+                ⚠️ Backend server is not responding. Check your API connection.
               </motion.p>
             )}
           </motion.div>
