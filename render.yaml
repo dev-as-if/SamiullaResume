@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: ai-resume-builder-backend
+    runtime: node
+    plan: free
+    buildCommand: cd server && npm install && npm run build
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: PORT
+        value: 10000
+      - key: CLIENT_URL
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
+      - key: LOG_LEVEL
+        value: info
+
+  - type: static
+    name: ai-resume-builder-frontend
+    staticPublishPath: client/dist
+    buildCommand: cd client && npm install && npm run build
+    envVars:
+      - key: VITE_API_URL
+        sync: false
